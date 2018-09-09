@@ -9,27 +9,22 @@ def load_word():
    secret_word = random.choice(words_list)
    return secret_word
 
-def is_word_guessed(secret_word, letters_guessed):
-    '''
-    secretWord: string, the random word the user is trying to guess.  This is selected on line 9.
-    lettersGuessed: list of letters that have been guessed so far.
-    returns: boolean, True only if all the letters of secretWord are in lettersGuessed;
-      False otherwise
-    '''
-
-    # FILL IN YOUR CODE HERE...
-
 def get_guessed_word(secret_word, letters_guessed):
-    '''
-    secretWord: string, the random word the user is trying to guess.  This is selected on line 9.
-    lettersGuessed: list of letters that have been guessed so far.
-    returns: string, of letters and underscores.  For letters in the word that the user has
-    guessed correctly, the string should contain the letter at the correct position.  For letters
-    in the word that the user has not yet guessed, shown an _ (underscore) instead.
-    '''
-    # FILL IN YOUR CODE HERE...
-
-
+    # turn the secret_word into a list of chars, since you cannot iterate over a string
+    secretWordList = list(secret_word)
+    for char in secretWordList:
+        if char not in letters_guessed:
+            charPosition = secretWordList.index(char)
+            secretWordList.remove(char)
+            secretWordList.insert(charPosition, '_ ')
+    strSoFar = ''.join(secretWordList)
+    print(strSoFar)
+            
+            
+secret_word = "batastab"
+letters_guessed = ['b', 'a']
+get_guessed_word(secret_word, letters_guessed)
+    
 
 
 def get_available_letters(letters_guessed):
