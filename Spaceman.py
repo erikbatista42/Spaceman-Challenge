@@ -1,5 +1,20 @@
 import random
 import string
+import os
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def makeSpace():
+    print("")
 
 def loadWord():
    f = open('spaceman_words.txt', 'r')
@@ -35,7 +50,8 @@ def getGuessedWord(secretWord, lettersGuessed):
 def getAvailableLetters(lettersGuessed):
 
     # lettersGuessed: list of letters that have been guessed so far
-    print("Letters guessed: {}".format(lettersGuessed))
+    lettersGuessedClean = ",".join(lettersGuessed)
+    print(bcolors.OKGREEN + "Letters guessed: {}".format(lettersGuessedClean))
 
     lettersAvailable = string.ascii_lowercase
     lettersAvailableList = list(lettersAvailable)
@@ -56,9 +72,10 @@ def getAvailableLetters(lettersGuessed):
 
 def spaceman(secretWord):
     #
-    print(".")
-    print(".")
-    print("Lets play Spaceman! :) ")
+    makeSpace()
+    makeSpace()
+
+    print("Let's play Spaceman! 👨‍🚀🚀")
     for dot in "." * 10:
       print(dot)
 
@@ -71,11 +88,13 @@ def spaceman(secretWord):
     secretWordList = list(secretWord)
 
     wrongLettersGuessed = []
+    availLetters = getAvailableLetters(lettersGuessed)
 
     numOfGuessesLeft = 7
 
-    while numOfGuessesLeft <= 7:
+    while numOfGuessesLeft > 0:
         guessALetter = input("Guess a letter (a-z): ")
+        makeSpace()
 
         if guessALetter in secretWordList:
           lettersGuessed.append(guessALetter)
@@ -83,28 +102,29 @@ def spaceman(secretWord):
           indexOfGuessedALetter = secretWordList.index(guessALetter)
 
           this[indexOfGuessedALetter] = guessALetter
-          print("Correct! You have {} guess(s) left!".format(numOfGuessesLeft))
+          print("Correct! Guesses left: {}".format(numOfGuessesLeft))
+          makeSpace()
+          secretWordListClean = " ".join(this)
+          print("Secret Word: {}".format(secretWordListClean))
+          wrongLettersGuessedClean = "".join(wrongLettersGuessed)
+          print("Wrong letters guessed: {}".format(wrongLettersGuessedClean))
 
-
-          print("secret word copy list: {}".format(this))
+          print("Available letters: {}".format(availLetters))
         else:
           numOfGuessesLeft -= 1
           wrongLettersGuessed.append(guessALetter)
-          print("That letter doesn't exist! You have {} tries left!".format(numOfGuessesLeft))
-          print("Wrong letters guessed: {}".format(wrongLettersGuessed))
-          if numOfGuessesLeft == 0:
-             print("GAME OVER!")
-
-
-
-
-    # prints out the guessed word
-    getAvailableLetters(lettersGuessed)
+          print("Wrong!You guessed the wrong letter! You have {} guess(s) left!".format(numOfGuessesLeft))
+          makeSpace()
+          wrongLettersGuessedClean = "".join(wrongLettersGuessed)
+          print("Letters Guessed: {}".format(wrongLettersGuessedClean))
+          print("Available letters: {}".format(availLetters))
+          # if numOfGuessesLeft == 0:
+          #    print("GAME OVER!")
 
     print("The word was {}!".format(secretWord))
 
     # missing the letters the user has not guessed so far // fix getAvailableLetters)()
-
+    #
 
 
 secretWord = loadWord()
