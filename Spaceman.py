@@ -2,17 +2,6 @@ import random
 import string
 import os
 
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
 def makeSpace():
     print("")
 
@@ -51,7 +40,7 @@ def getAvailableLetters(lettersGuessed):
 
     # lettersGuessed: list of letters that have been guessed so far
     lettersGuessedClean = ",".join(lettersGuessed)
-    print(bcolors.OKGREEN + "Letters guessed: {}".format(lettersGuessedClean))
+    print("Letters guessed: {}".format(lettersGuessedClean))
 
     lettersAvailable = string.ascii_lowercase
     lettersAvailableList = list(lettersAvailable)
@@ -74,6 +63,7 @@ def spaceman(secretWord):
     #
     makeSpace()
     makeSpace()
+
 
     print("Let's play Spaceman! 👨‍🚀🚀")
     for dot in "." * 10:
@@ -102,20 +92,22 @@ def spaceman(secretWord):
           indexOfGuessedALetter = secretWordList.index(guessALetter)
 
           this[indexOfGuessedALetter] = guessALetter
-          print("Correct! Guesses left: {}".format(numOfGuessesLeft))
+          print("Correct! Guesses left: {}".format(this))
           makeSpace()
-          secretWordListClean = " ".join(this)
           print("Secret Word: {}".format(secretWordListClean))
           wrongLettersGuessedClean = "".join(wrongLettersGuessed)
-          print("Wrong letters guessed: {}".format(wrongLettersGuessedClean))
+          print("Letters guessed: {}".format(wrongLettersGuessedClean))
 
           print("Available letters: {}".format(availLetters))
         else:
           numOfGuessesLeft -= 1
           wrongLettersGuessed.append(guessALetter)
-          print("Wrong!You guessed the wrong letter! You have {} guess(s) left!".format(numOfGuessesLeft))
+          print("Wrong! Guesses left: {}".format(numOfGuessesLeft))
           makeSpace()
           wrongLettersGuessedClean = "".join(wrongLettersGuessed)
+          print("Secret Word: {}".format(secretWordListClean))
+          wrongLettersGuessedClean = "".join(wrongLettersGuessed)
+
           print("Letters Guessed: {}".format(wrongLettersGuessedClean))
           print("Available letters: {}".format(availLetters))
           # if numOfGuessesLeft == 0:
