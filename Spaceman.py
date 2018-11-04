@@ -34,6 +34,8 @@ def getGuessedWord(secretWord, lettersGuessed):
     return secretWordCopyList
 
 
+def duplicates(lst, item):
+    return [i for i, x in enumerate(lst) if x == item]
 
 
 def getAvailableLetters(lettersGuessed):
@@ -60,10 +62,8 @@ def getAvailableLetters(lettersGuessed):
 
 
 def spaceman(secretWord):
-    #
     makeSpace()
     makeSpace()
-
 
     print("Let's play Spaceman! 👨‍🚀🚀")
     for dot in "." * 10:
@@ -74,7 +74,7 @@ def spaceman(secretWord):
     print("The secret words containts {} letters!".format(lenOfLetters))
 
     lettersGuessed = []
-    this = getGuessedWord(secretWord,lettersGuessed)
+    secretWordWithUnderscores = getGuessedWord(secretWord,lettersGuessed)
     secretWordList = list(secretWord)
 
     wrongLettersGuessed = []
@@ -91,9 +91,16 @@ def spaceman(secretWord):
 
           indexOfGuessedALetter = secretWordList.index(guessALetter)
 
-          this[indexOfGuessedALetter] = guessALetter
-          print("Correct! Guesses left: {}".format(this))
+          secretWordWithUnderscores[indexOfGuessedALetter] = guessALetter
+
+          dups = duplicates(secretWordList, guessALetter)
+          for indexNum in dups:
+              secretWordWithUnderscores[indexNum] = guessALetter
+
+          print("------------------------------------------")
+          print("Correct! Guesses left: {}".format(numOfGuessesLeft))
           makeSpace()
+          secretWordListClean = " ".join(secretWordWithUnderscores)
           print("Secret Word: {}".format(secretWordListClean))
           wrongLettersGuessedClean = "".join(wrongLettersGuessed)
           print("Letters guessed: {}".format(wrongLettersGuessedClean))
@@ -102,9 +109,11 @@ def spaceman(secretWord):
         else:
           numOfGuessesLeft -= 1
           wrongLettersGuessed.append(guessALetter)
+          print("------------------------------------------")
           print("Wrong! Guesses left: {}".format(numOfGuessesLeft))
           makeSpace()
           wrongLettersGuessedClean = "".join(wrongLettersGuessed)
+          secretWordListClean = " ".join(secretWordWithUnderscores)
           print("Secret Word: {}".format(secretWordListClean))
           wrongLettersGuessedClean = "".join(wrongLettersGuessed)
 
