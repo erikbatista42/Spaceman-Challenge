@@ -38,6 +38,7 @@ def duplicates(lst, item):
     return [i for i, x in enumerate(lst) if x == item]
 
 
+
 def getAvailableLetters(lettersGuessed):
     alphabet = string.ascii_lowercase
     alphabetList = list(alphabet)
@@ -46,6 +47,7 @@ def getAvailableLetters(lettersGuessed):
             alphabetList.remove(letter)
     remainingLetters = "".join(alphabetList)
     return remainingLetters
+
 
 
 def spaceman(secretWord):
@@ -69,13 +71,12 @@ def spaceman(secretWord):
 
     while numOfGuessesLeft > 0:
       print(secretWord)
-      if "_" not in secretWordList:
+      if "_" in secretWordWithUnderscores:
         guessALetter = input("Guess a letter (a-z): ").lower()
         makeSpace()
 
         lettersGuessedList.append(guessALetter)
         # availLetters = getAvailableLetters(lettersGuessedList)
-        print("ayyy: ", getAvailableLetters(lettersGuessedList))
         if guessALetter in secretWordList:
 
           # lettersGuessedList.append(guessALetter)
@@ -113,8 +114,16 @@ def spaceman(secretWord):
           # if numOfGuessesLeft == 0:
           #    print("GAME OVER!")
       else:
-        print("you did it. You won.")
-    print("The word was {}!".format(secretWord))
+        for dot in "." * 5:
+          print(dot)
+        print("YOU WIN!!!")
+        break
+    if "_" in secretWordWithUnderscores:
+      for dot in "." * 5:
+          print(dot)
+      print("GAME OVER!")
+      print("The word was {}!".format(secretWord))
+
 
     # missing the letters the user has not guessed so far // fix getAvailableLetters)()
 
